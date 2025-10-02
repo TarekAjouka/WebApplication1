@@ -1,0 +1,35 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+
+GET https://localhost:5136/games 
+
+###
+
+GET https://localhost:5136/games/2
+
+###
+
+POST https://localhost:5136/games
+content-type: application/json
+{
+  "name": "Tarek New Game",
+  "genreId": 2,
+  "price": 44.99,
+  "releaseDate": "2021-11-09"
+}
+
+###
+
+
+PUT https://localhost:5136/games/5
+content-type: application/json
+{
+  "name": "Updated Game",
+  "genre": "Action",
+  "price": 100,
+  "releaseDate": "2022-12-01"
+}
+
+###
+
+DELETE https://localhost:5136/games/2
+

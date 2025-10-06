@@ -1,6 +1,6 @@
 # For more info on HTTP files go to https://aka.ms/vs/httpfile
 
-GET https://localhost:5136/games 
+ET https://localhost:5136/games 
 
 ###
 
@@ -11,20 +11,20 @@ GET https://localhost:5136/games/2
 POST https://localhost:5136/games
 content-type: application/json
 {
-  "name": "Tarek New Game",
+  "name": "Call of Duty: Modern Warfare II",
   "genreId": 2,
-  "price": 44.99,
-  "releaseDate": "2021-11-09"
+  "price": 69.99,
+  "releaseDate": "2022-10-28"
 }
 
 ###
 
 
-PUT https://localhost:5136/games/5
+PUT https://localhost:5136/games/7
 content-type: application/json
 {
-  "name": "Updated Game",
-  "genre": "Action",
+  "name": "Updated Game2",
+  "genreId": 2,
   "price": 100,
   "releaseDate": "2022-12-01"
 }

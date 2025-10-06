@@ -10,8 +10,13 @@ var connString = builder.Configuration.GetConnectionString("GameStore");
 
 builder.Services.AddDbContext<GameStoreContext>(options =>
 {
-    options.UseSqlServer(connString);
+    options.UseNpgsql(connString);
 } );
+
+builder.Services.AddDbContext<ApplicationIdentityContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("IdentityConnection"));
+});
 
 
 

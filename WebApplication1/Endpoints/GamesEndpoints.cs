@@ -14,7 +14,7 @@ public static class GamesEndpoints
     {
         var group = app.MapGroup("games");
         //GET /games
-        group.MapGet("/", (GameStoreContext dbContext) => dbContext.Games);
+        group.MapGet("/", (GameStoreContext dbContext) => dbContext.Games.Include(game=>game.Genre).Select(game => game.ToDto()).AsNoTracking());
 
         //GET /games/{id}
         group.MapGet("/{id}", (int id,GameStoreContext dbContext) =>
@@ -51,7 +51,7 @@ public static class GamesEndpoints
 
         //PUT /games/{id}
 
-        group.MapPut("/{id}", (int id, UpdateGameDto updatedGame,GameStoreContext dbContext) =>
+        group.MapPut("/{id}", (int id, CreatGameDto updatedGame,GameStoreContext dbContext) =>
         {
             var game = dbContext.Games.Find(id);
 
@@ -60,11 +60,7 @@ public static class GamesEndpoints
             if (dbContext.Games.Any(g => g.Name == updatedGame.Name && g.Id != id))
                 return Results.BadRequest($"Game with name '{updatedGame.Name}' already exists.");
 
-            game.Name = updatedGame.Name ?? game.Name;
-            game.GenreId = updatedGame.GenreId;
-            game.Genre = dbContext.Genres.Find(updatedGame.GenreId);
-            game.Price = updatedGame.Price;
-            game.ReleaseDate = updatedGame.ReleaseDate;
+            dbContext.Entry(game).CurrentValues.SetValues(updatedGame.ToEntity());
 
             dbContext.SaveChanges();
             return Results.NoContent();
@@ -76,12 +72,7 @@ public static class GamesEndpoints
 
         group.MapDelete("/{id}", (int id,GameStoreContext dbContext) =>
         {
-            var game = dbContext.Games.Find(id);
-            if (game is null)
-            {
-                return Results.NotFound();
-            }
-            dbContext.Games.Remove(game);
+            dbContext.Games.Where(game => game.Id == id).ExecuteDelete();
             dbContext.SaveChanges();
             return Results.NoContent();
         });

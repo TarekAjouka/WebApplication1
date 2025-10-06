@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApplication1.Data;
@@ -11,9 +12,11 @@ using WebApplication1.Data;
 namespace WebApplication1.Migrations.ApplicationIdentity
 {
     [DbContext(typeof(ApplicationIdentityContext))]
-    partial class ApplicationIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20251006200400_SeedRoles")]
+    partial class SeedRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,24 +158,6 @@ namespace WebApplication1.Migrations.ApplicationIdentity
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "a1b2c3d4-e5f6-7890-abcd-1234567890ab",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "18355922-2447-4e45-95e1-aafdb5a44ffd",
-                            Email = "admin@example.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@EXAMPLE.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPwzvXow6civY/r+WnS/ctnh0VtGmBg9MFUPf9EQfvrcNQZog8S1n7LKMTQINrNShA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "a0d6d444-9b77-46b8-823f-ad41981dd278",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -235,13 +220,6 @@ namespace WebApplication1.Migrations.ApplicationIdentity
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "a1b2c3d4-e5f6-7890-abcd-1234567890ab",
-                            RoleId = "21ba7501-d5b1-4011-8e3b-9f6aeb6c8fc2"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

@@ -8,7 +8,7 @@ namespace WebApplication1.Data
         public DbSet<Game> Games => Set<Game>();
         public DbSet<Genre> Genres => Set<Genre>();
 
-        public GameStoreContext(DbContextOptions options) : base(options)
+        public GameStoreContext(DbContextOptions<GameStoreContext> options) : base(options)
         {
             
         }
